@@ -1,0 +1,66 @@
+Last login: Fri Jun  5 21:29:33 on ttys002
+savyaraj@SAVYAs-MacBook-Air traffic_demand_prediction %                        
+source venv/bin/activate
+(venv) savyaraj@SAVYAs-MacBook-Air traffic_demand_prediction % python3 solution.py
+=================================================================
+  TRAFFIC DEMAND PREDICTION — FULL PIPELINE
+=================================================================
+
+[1/7] Loading data ...
+    Train : 77,299 rows × 11 cols
+    Test  : 41,778 rows × 10 cols
+    ✓ Data loaded successfully
+
+[2/7] Engineering features ...
+    ✓ All features engineered
+    Feature matrix : 77,299 rows × 35 features
+    Target (log1p) : mean=0.0831, std=0.1089
+
+[3/7] Training LightGBM ...
+[500]	valid_0's rmse: 0.00383554
+[1000]	valid_0's rmse: 0.00371451
+    Fold 1/5  |  best iter: 1350  |  val R²: 0.9986
+[500]	valid_0's rmse: 0.00367982
+    Fold 2/5  |  best iter:  530  |  val R²: 0.9978
+[500]	valid_0's rmse: 0.00393144
+[1000]	valid_0's rmse: 0.00379868
+[1500]	valid_0's rmse: 0.00375704
+    Fold 3/5  |  best iter: 1681  |  val R²: 0.9983
+[500]	valid_0's rmse: 0.00351256
+    Fold 4/5  |  best iter:  684  |  val R²: 0.9984
+    Fold 5/5  |  best iter:  396  |  val R²: 0.9967
+
+    ✓ LightGBM OOF R²: 0.9978  |  Score: 99.78
+
+[4/7] Training XGBoost ...
+    Fold 1/5  |  best iter: 1854  |  val R²: 0.9985
+    Fold 2/5  |  best iter: 1302  |  val R²: 0.9973
+    Fold 3/5  |  best iter: 2986  |  val R²: 0.9982
+    Fold 4/5  |  best iter: 2864  |  val R²: 0.9985
+    Fold 5/5  |  best iter:  282  |  val R²: 0.9957
+
+    ✓ XGBoost OOF R²:  0.9975  |  Score: 99.75
+
+[5/7] Finding optimal blend ...
+    Best alpha (LGB weight): 0.75  →  OOF R²: 0.9979  |  Score: 99.79
+
+    ✓ Final blended OOF R²: 0.9979  |  Score: 99.79
+
+[6/7] Building submission file ...
+    Shape        : (41778, 2)
+    Demand mean  : 0.1133
+    Demand std   : 0.1629
+    Demand range : [0.0006, 1.0000]
+    ✓ Saved to   : outputs/submission.csv
+
+[7/7] Summary
+=================================================================
+  LightGBM OOF R²      : 0.9978  (score: 99.8)
+  XGBoost  OOF R²      : 0.9975  (score: 99.7)
+  Blend (α=0.75) R² : 0.9979  (score: 99.8)
+  Submission file      : outputs/submission.csv
+=================================================================
+
+  ✅ Done! Upload outputs/submission.csv to the leaderboard.
+
+(venv) savyaraj@SAVYAs-MacBook-Air traffic_demand_prediction % 
